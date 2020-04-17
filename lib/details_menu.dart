@@ -1,38 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'cart.dart';
-import 'details_menu.dart';
 
-class Home extends StatefulWidget{
+class DetailsMenuPage extends StatefulWidget{
+
+  String menuId;
+
+  DetailsMenuPage({this.menuId});
+
   @override
   State<StatefulWidget> createState() {
-    return _HomeState();
+    return _DetailsMenuPageState();
   }
 }
 
-class _HomeState extends State<Home>{
-
-
+class _DetailsMenuPageState extends State<DetailsMenuPage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Faîtes votre commande'),
-        actions: <Widget>[
-          new IconButton(
-            icon: Icon(
-              Icons.shopping_cart,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => new Cart()));
-            },
-          )
-        ],
+        title: Text('Faîtes votre choix'),
       ),
       body: Container(
         child: StreamBuilder(
-          stream: Firestore.instance.collection("Restaurants").document("cJraGzuF74OHyrTfykeg").collection("Menu").snapshots(),
+          stream: Firestore.instance.collection("Restaurants").document("cJraGzuF74OHyrTfykeg").collection("Menu").document(widget.menuId).collection("Produits").snapshots(),
           builder: (context,snapshot){
             if (!snapshot.hasData){
               return Text('Loading..');
@@ -50,6 +40,7 @@ class _HomeState extends State<Home>{
       ),
     );
   }
+
 }
 
 Widget _buildList(BuildContext context, DocumentSnapshot documentSnapshot) {
@@ -63,23 +54,14 @@ Widget _buildList(BuildContext context, DocumentSnapshot documentSnapshot) {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Expanded(
-            flex: 1,
-            child: Image.network( documentSnapshot['imageUrl'],
-              fit: BoxFit.cover,
-              height: 60,
-              width: 60,
-            ),
-          ),
-          Expanded(
-            flex: 3,
             child: ListTile(
-              title: Text(documentSnapshot['nomTypeProduit'], style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold ),),
-
+              title: Text(documentSnapshot['nomProduit'], style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold ),),
+              subtitle: Text(documentSnapshot['prix'].toString(), style: TextStyle(color: Colors.orange),),
             ),
           ),
           Spacer(),
           Icon(
-            Icons.arrow_forward_ios,
+            Icons.arrow_forward,
             color: Colors.orange,
             size: 24.0,
           ),
