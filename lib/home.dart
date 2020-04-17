@@ -50,3 +50,10 @@ class _HomeState extends State<Home>{
     );
   }
 }
+
+Widget _buildList(BuildContext context, DocumentSnapshot documentSnapshot) {
+  return ListTile(
+    title: Text(documentSnapshot['nomProduit']),
+    subtitle: Text(documentSnapshot['prix'].toString()),
+  );
+}
