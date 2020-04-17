@@ -52,8 +52,34 @@ class _HomeState extends State<Home>{
 }
 
 Widget _buildList(BuildContext context, DocumentSnapshot documentSnapshot) {
-  return ListTile(
-    title: Text(documentSnapshot['nomProduit']),
-    subtitle: Text(documentSnapshot['prix'].toString()),
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Expanded(
+          flex: 1,
+          child: Image.network( documentSnapshot['imageUrl'],
+            fit: BoxFit.cover,
+            height: 60,
+            width: 60,
+          ),
+        ),
+        Expanded(
+          flex: 3,
+          child: ListTile(
+            title: Text(documentSnapshot['nomTypeProduit'], style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold ),),
+
+          ),
+        ),
+        Spacer(),
+        Icon(
+          Icons.arrow_forward_ios,
+          color: Colors.orange,
+          size: 24.0,
+        ),
+
+      ],
+    ),
   );
 }
