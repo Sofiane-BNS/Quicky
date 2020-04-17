@@ -44,30 +44,28 @@ class _DetailsMenuPageState extends State<DetailsMenuPage>{
 }
 
 Widget _buildList(BuildContext context, DocumentSnapshot documentSnapshot) {
-  return GestureDetector(
-    onTap: () {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => new DetailsMenuPage(menuId: documentSnapshot.documentID)));
-    },
-    child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Expanded(
-            child: ListTile(
-              title: Text(documentSnapshot['nomProduit'], style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold ),),
-              subtitle: Text(documentSnapshot['prix'].toString(), style: TextStyle(color: Colors.orange),),
-            ),
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Expanded(
+          child: ListTile(
+            title: Text(documentSnapshot['nomProduit'], style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold ),),
+            subtitle: Text('prix: ' + documentSnapshot['prix'].toString() + "€", style: TextStyle(color: Colors.orange),),
           ),
-          Spacer(),
-          Icon(
-            Icons.arrow_forward,
+        ),
+        Spacer(),
+        Text('1', style: TextStyle(color: Colors.black)),
+        IconButton(
+          icon: Icon(
+            Icons.add,
             color: Colors.orange,
             size: 24.0,
           ),
+        ),
 
-        ],
-      ),
+      ],
     ),
   );
 }
