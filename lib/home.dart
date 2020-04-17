@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'cart.dart';
 
 class Home extends StatefulWidget{
   @override
@@ -16,6 +17,17 @@ class _HomeState extends State<Home>{
     return Scaffold(
       appBar: AppBar(
         title: Text('Faîtes votre commande'),
+        actions: <Widget>[
+          new IconButton(
+            icon: Icon(
+              Icons.shopping_cart,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => new Cart()));
+            },
+          )
+        ],
       ),
       body: Container(
         child: StreamBuilder(
@@ -37,11 +49,4 @@ class _HomeState extends State<Home>{
       ),
     );
   }
-}
-
-Widget _buildList(BuildContext context, DocumentSnapshot documentSnapshot) {
-  return ListTile(
-    title: Text(documentSnapshot['nomProduit']),
-    subtitle: Text(documentSnapshot['prix'].toString()),
-  );
 }
