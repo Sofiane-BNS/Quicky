@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:quicky/model/panier.dart';
 import 'cart.dart';
 import 'details_menu.dart';
 
@@ -12,9 +13,11 @@ class Home extends StatefulWidget{
 
 class _HomeState extends State<Home>{
 
+  PanierModel panier = PanierModel();
 
   @override
   Widget build(BuildContext context) {
+    print(panier.listItemMenu.length);
     return Scaffold(
       appBar: AppBar(
         title: Text('Faîtes votre commande'),
@@ -40,7 +43,7 @@ class _HomeState extends State<Home>{
               return ListView.builder(
                 itemExtent: 80.0,
                 itemCount: snapshot.data.documents.length,
-                itemBuilder: (context, index) => _buildList(context, snapshot.data.documents[index]),
+                itemBuilder: (context, index) => _buildList(context, snapshot.data.documents[index], panier),
 
               );
             }
@@ -52,10 +55,10 @@ class _HomeState extends State<Home>{
   }
 }
 
-Widget _buildList(BuildContext context, DocumentSnapshot documentSnapshot) {
+Widget _buildList(BuildContext context, DocumentSnapshot documentSnapshot, PanierModel panier) {
   return GestureDetector(
     onTap: () {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => new DetailsMenuPage(menuId: documentSnapshot.documentID)));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => new DetailsMenuPage(menuId: documentSnapshot.documentID, panier: panier,)));
     },
     child: Padding(
       padding: const EdgeInsets.all(8.0),
