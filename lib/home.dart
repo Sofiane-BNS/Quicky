@@ -15,6 +15,10 @@ class _HomeState extends State<Home>{
 
   PanierModel panier = PanierModel();
 
+  resetPanier(){
+    panier = PanierModel();
+  }
+
   @override
   Widget build(BuildContext context) {
     print(panier.listItemMenu.length);
@@ -28,7 +32,7 @@ class _HomeState extends State<Home>{
               color: Colors.white,
             ),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => new Cart()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => new Cart(panier: panier,resetPanier: resetPanier(),)));
             },
           )
         ],
@@ -58,7 +62,7 @@ class _HomeState extends State<Home>{
 Widget _buildList(BuildContext context, DocumentSnapshot documentSnapshot, PanierModel panier) {
   return GestureDetector(
     onTap: () {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => new DetailsMenuPage(menuId: documentSnapshot.documentID, panier: panier,)));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => new DetailsMenuPage(categorieId: documentSnapshot.documentID,panier: panier,)));
     },
     child: Padding(
       padding: const EdgeInsets.all(8.0),
