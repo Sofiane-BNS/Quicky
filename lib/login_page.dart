@@ -24,7 +24,6 @@ class _LoginPageState extends State<LoginPage>{
       formKey.currentState.save();
       try{
         AuthResult authResult = await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email.trim(), password: _password);
-        FirebaseUser user = authResult.user;
         Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
             Home()), (Route<dynamic> route) => false);
       } catch (e){
