@@ -41,46 +41,46 @@ class _HomeState extends State<Home>{
         child: ListView(
           children: <Widget>[
 
-            new UserAccountsDrawerHeader(
-              accountName: Text('Joël Boni'),
-              accountEmail: Text('joel@gmail.com'),
-              currentAccountPicture: GestureDetector(
-                child: new CircleAvatar(
-                  backgroundColor: Colors.orange,
-                  child:Icon(Icons.person, color:Colors.white),
+              new UserAccountsDrawerHeader(
+                  accountName: Text('Joël Boni'),
+                  accountEmail: Text('joel@gmail.com'),
+                  currentAccountPicture: GestureDetector(
+                    child: new CircleAvatar(
+                      backgroundColor: Colors.orange,
+                      child:Icon(Icons.person, color:Colors.white),
+                    ),
+                  ),
+                decoration: new BoxDecoration(
+                  color:Colors.orange
+                ),
+
+              ),
+             ListTile(
+               title:Text('Home'),
+             leading:Icon(Icons.home),
+             ),
+              InkWell(
+                onTap:(){} ,
+                child: ListTile(
+                  title:Text('Mon compte'),
+                  leading:Icon(Icons.person),
                 ),
               ),
-              decoration: new BoxDecoration(
-                  color:Colors.orange
+              InkWell(
+                onTap:(){} ,
+                child: ListTile(
+                  title:Text('Parametres'),
+                  leading:Icon(Icons.settings),
+                ),
               ),
-
-            ),
-            ListTile(
-              title:Text('Home'),
-              leading:Icon(Icons.home),
-            ),
-            InkWell(
-              onTap:(){} ,
-              child: ListTile(
-                title:Text('Mon compte'),
-                leading:Icon(Icons.person),
-              ),
-            ),
-            InkWell(
-              onTap:(){} ,
-              child: ListTile(
-                title:Text('Parametres'),
-                leading:Icon(Icons.settings),
-              ),
-            ),
-            InkWell(
-              onTap:(){
-                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+              InkWell(
+                onTap:(){
+                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
                     LoginPage()), (Route<dynamic> route) => false);} ,
 
-              child: ListTile(
-                title:Text('Deconnexion'),
-                leading:Icon(Icons.exit_to_app),
+                child: ListTile(
+                  title:Text('Deconnexion'),
+                  leading:Icon(Icons.exit_to_app),
 
               ),
             )
@@ -145,4 +145,5 @@ Widget _buildList(BuildContext context, DocumentSnapshot documentSnapshot, Panie
       ),
     ),
   );
+
 }
