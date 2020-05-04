@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quicky/login_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -20,6 +21,14 @@ class _HomeState extends State<Home>{
     panier = PanierModel();
   }
 
+  Future<DocumentSnapshot> getProfile() async{
+    final FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    final uid = user.uid;
+    return Firestore.instance
+        .collection('Profile')
+        .document(uid)
+        .get();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,8 +50,11 @@ class _HomeState extends State<Home>{
         child: ListView(
           children: <Widget>[
 
-              new UserAccountsDrawerHeader(
-                  accountName: Text('Joël Boni'),
+            FutureBuilder(
+              future: getProfile(),
+              builder: (context, snapshot) {
+                return new UserAccountsDrawerHeader(
+                  accountName: Text(snapshot.data.data['nom'] + " " + snapshot.data.data['prenom']),
                   accountEmail: Text('joel@gmail.com'),
                   currentAccountPicture: GestureDetector(
                     child: new CircleAvatar(
@@ -50,10 +62,24 @@ class _HomeState extends State<Home>{
                       child:Icon(Icons.person, color:Colors.white),
                     ),
                   ),
-                decoration: new BoxDecoration(
-                  color:Colors.orange
-                ),
+                  decoration: new BoxDecoration(
+                      color:Colors.orange
+                  ),
 
+                );
+              },
+            ),
+
+
+            ListTile(
+              title:Text('Home'),
+              leading:Icon(Icons.home),
+            ),
+            InkWell(
+              onTap:(){} ,
+              child: ListTile(
+                title:Text('Mon compte'),
+                leading:Icon(Icons.person),
               ),
              ListTile(
                title:Text('Home'),
