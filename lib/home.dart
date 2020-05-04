@@ -62,24 +62,10 @@ class _HomeState extends State<Home>{
                       child:Icon(Icons.person, color:Colors.white),
                     ),
                   ),
-                  decoration: new BoxDecoration(
-                      color:Colors.orange
-                  ),
+                decoration: new BoxDecoration(
+                  color:Colors.orange
+                ),
 
-                );
-              },
-            ),
-
-
-            ListTile(
-              title:Text('Home'),
-              leading:Icon(Icons.home),
-            ),
-            InkWell(
-              onTap:(){} ,
-              child: ListTile(
-                title:Text('Mon compte'),
-                leading:Icon(Icons.person),
               ),
              ListTile(
                title:Text('Home'),
