@@ -54,18 +54,21 @@ class _HomeState extends State<Home>{
               future: getProfile(),
               builder: (context, snapshot) {
                 return new UserAccountsDrawerHeader(
-                  accountName: Text(snapshot.data.data['nom'] + " " + snapshot.data.data['prenom']),
+                  accountName: Text(snapshot.data.data['nom'] + " " +
+                      snapshot.data.data['prenom']),
                   accountEmail: Text('joel@gmail.com'),
                   currentAccountPicture: GestureDetector(
                     child: new CircleAvatar(
                       backgroundColor: Colors.orange,
-                      child:Icon(Icons.person, color:Colors.white),
+                      child: Icon(Icons.person, color: Colors.white),
                     ),
                   ),
-                decoration: new BoxDecoration(
-                  color:Colors.orange
-                ),
+                  decoration: new BoxDecoration(
+                      color: Colors.orange
+                  ),
 
+                );
+              }
               ),
              ListTile(
                title:Text('Home'),
