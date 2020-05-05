@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:quicky/login_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:quicky/model/panier.dart';
+import 'package:quicky/service/payment.dart';
 import 'cart.dart';
 import 'details_menu.dart';
+import 'package:stripe_payment/stripe_payment.dart';
 
 class Home extends StatefulWidget{
 
@@ -19,19 +21,28 @@ class Home extends StatefulWidget{
 
 class _HomeState extends State<Home>{
 
-  PanierModel panier = PanierModel();
+  PanierModel panier;
 
   resetPanier(){
-    panier = PanierModel();
+    //panier = PanierModel();
   }
 
   Future<DocumentSnapshot> getProfile() async{
     final FirebaseUser user = await FirebaseAuth.instance.currentUser();
     final uid = user.uid;
+    print(uid);
     return Firestore.instance
         .collection('Profile')
         .document(uid)
         .get();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    StripeService.init();
+    panier = PanierModel();
   }
   @override
   Widget build(BuildContext context) {
@@ -39,6 +50,12 @@ class _HomeState extends State<Home>{
       appBar: AppBar(
         title: Text('Faîtes votre commande'),
         actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: (){
+              panier = PanierModel();
+            },
+          ),
           new IconButton(
             icon: Icon(
               Icons.shopping_cart,
@@ -57,27 +74,47 @@ class _HomeState extends State<Home>{
             FutureBuilder(
               future: getProfile(),
               builder: (context, snapshot) {
-                return new UserAccountsDrawerHeader(
-                  accountName: Text(snapshot.data.data['nom'] + " " +
-                      snapshot.data.data['prenom']),
-                  accountEmail: Text('joel@gmail.com'),
-                  currentAccountPicture: GestureDetector(
-                    child: new CircleAvatar(
-                      backgroundColor: Colors.orange,
-                      child: Icon(Icons.person, color: Colors.white),
+                if(snapshot.hasData){
+                  return new UserAccountsDrawerHeader(
+                    accountName: Text(snapshot.data['nom'] + " " +
+                        snapshot.data['nom']),
+                    accountEmail: Text('joel@gmail.com'),
+                    currentAccountPicture: GestureDetector(
+                      child: new CircleAvatar(
+                        backgroundColor: Colors.orange,
+                        child: Icon(Icons.person, color: Colors.white),
+                      ),
                     ),
-                  ),
-                  decoration: new BoxDecoration(
-                      color: Colors.orange
-                  ),
+                    decoration: new BoxDecoration(
+                        color: Colors.orange
+                    ),
 
-                );
+                  );
+                } else {
+                  return Text("Loading");
+                }
+
               }
               ),
              ListTile(
                title:Text('Home'),
              leading:Icon(Icons.home),
              ),
+            InkWell(
+              onTap:()async{
+                await StripePayment.paymentRequestWithCardForm(
+                  CardFormPaymentRequest(),
+                ).then(
+                        (PaymentMethod paymentMethod) async {
+
+                        }
+                );
+              } ,
+              child: ListTile(
+                title:Text('Ajouter une carte bancaire'),
+                leading:Icon(Icons.credit_card),
+              ),
+            ),
               InkWell(
                 onTap:(){} ,
                 child: ListTile(
