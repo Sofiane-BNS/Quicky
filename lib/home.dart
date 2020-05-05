@@ -1,10 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:quicky/login_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:quicky/model/panier.dart';
 import 'cart.dart';
 import 'details_menu.dart';
 
 class Home extends StatefulWidget{
+
+  final String idRestaurant;
+  Home(idRestaurant):this.idRestaurant = idRestaurant;
+
   @override
   State<StatefulWidget> createState() {
     return _HomeState();
@@ -19,9 +25,16 @@ class _HomeState extends State<Home>{
     panier = PanierModel();
   }
 
+  Future<DocumentSnapshot> getProfile() async{
+    final FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    final uid = user.uid;
+    return Firestore.instance
+        .collection('Profile')
+        .document(uid)
+        .get();
+  }
   @override
   Widget build(BuildContext context) {
-    print(panier.listItemMenu.length);
     return Scaffold(
       appBar: AppBar(
         title: Text('Faîtes votre commande'),
@@ -37,9 +50,66 @@ class _HomeState extends State<Home>{
           )
         ],
       ),
+      drawer: new Drawer(
+        child: ListView(
+          children: <Widget>[
+
+            FutureBuilder(
+              future: getProfile(),
+              builder: (context, snapshot) {
+                return new UserAccountsDrawerHeader(
+                  accountName: Text(snapshot.data.data['nom'] + " " +
+                      snapshot.data.data['prenom']),
+                  accountEmail: Text('joel@gmail.com'),
+                  currentAccountPicture: GestureDetector(
+                    child: new CircleAvatar(
+                      backgroundColor: Colors.orange,
+                      child: Icon(Icons.person, color: Colors.white),
+                    ),
+                  ),
+                  decoration: new BoxDecoration(
+                      color: Colors.orange
+                  ),
+
+                );
+              }
+              ),
+             ListTile(
+               title:Text('Home'),
+             leading:Icon(Icons.home),
+             ),
+              InkWell(
+                onTap:(){} ,
+                child: ListTile(
+                  title:Text('Mon compte'),
+                  leading:Icon(Icons.person),
+                ),
+              ),
+              InkWell(
+                onTap:(){} ,
+                child: ListTile(
+                  title:Text('Parametres'),
+                  leading:Icon(Icons.settings),
+                ),
+              ),
+              InkWell(
+                onTap:(){
+                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                    LoginPage()), (Route<dynamic> route) => false);} ,
+
+                child: ListTile(
+                  title:Text('Deconnexion'),
+                  leading:Icon(Icons.exit_to_app),
+
+              ),
+            )
+          ],
+        ),
+      ),
       body: Container(
         child: StreamBuilder(
-          stream: Firestore.instance.collection("Restaurants").document("cJraGzuF74OHyrTfykeg").collection("Menu").snapshots(),
+          //stream: Firestore.instance.collection("Restaurants").document("cJraGzuF74OHyrTfykeg").collection("Menu").snapshots(),
+          stream: Firestore.instance.collection("Restaurants").document(widget.idRestaurant).collection("Menu").snapshots(),
           builder: (context,snapshot){
             if (!snapshot.hasData){
               return Text('Loading..');
@@ -95,4 +165,5 @@ Widget _buildList(BuildContext context, DocumentSnapshot documentSnapshot, Panie
       ),
     ),
   );
+
 }
