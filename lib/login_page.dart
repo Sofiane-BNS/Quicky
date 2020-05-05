@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:quicky/sign_up_page.dart';
 
-import 'home.dart';
+import 'restaurant.dart';
 
 class LoginPage extends StatefulWidget {
 
@@ -25,7 +25,8 @@ class _LoginPageState extends State<LoginPage>{
       try{
         AuthResult authResult = await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email.trim(), password: _password);
         Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-            Home()), (Route<dynamic> route) => false);
+            //Home()), (Route<dynamic> route) => false);
+            Restaurant()), (Route<dynamic> route) => false);
       } catch (e){
         print(e);
       }

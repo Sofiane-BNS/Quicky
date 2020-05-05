@@ -7,6 +7,10 @@ import 'cart.dart';
 import 'details_menu.dart';
 
 class Home extends StatefulWidget{
+
+  final String idRestaurant;
+  Home(idRestaurant):this.idRestaurant = idRestaurant;
+
   @override
   State<StatefulWidget> createState() {
     return _HomeState();
@@ -104,7 +108,8 @@ class _HomeState extends State<Home>{
       ),
       body: Container(
         child: StreamBuilder(
-          stream: Firestore.instance.collection("Restaurants").document("cJraGzuF74OHyrTfykeg").collection("Menu").snapshots(),
+          //stream: Firestore.instance.collection("Restaurants").document("cJraGzuF74OHyrTfykeg").collection("Menu").snapshots(),
+          stream: Firestore.instance.collection("Restaurants").document(widget.idRestaurant).collection("Menu").snapshots(),
           builder: (context,snapshot){
             if (!snapshot.hasData){
               return Text('Loading..');
