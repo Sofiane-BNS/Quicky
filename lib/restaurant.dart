@@ -77,7 +77,7 @@ class _RestaurantState extends State<Restaurant>{
                         ),
                       ),
                       decoration: new BoxDecoration(
-                          color: Colors.orange
+                          color: Colors.red
                       ),
 
                     );

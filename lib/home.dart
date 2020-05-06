@@ -91,7 +91,7 @@ class _HomeState extends State<Home>{
                     ),
                   ),
                   decoration: new BoxDecoration(
-                      color: Colors.orange
+                      color: Colors.red
                   ),
 
                   );
