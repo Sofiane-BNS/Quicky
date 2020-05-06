@@ -119,21 +119,6 @@ class _HomeState extends State<Home>{
              leading:Icon(Icons.home),
              ),
             InkWell(
-              onTap:()async{
-                await StripePayment.paymentRequestWithCardForm(
-                  CardFormPaymentRequest(),
-                ).then(
-                        (PaymentMethod paymentMethod) async {
-
-                        }
-                );
-              } ,
-              child: ListTile(
-                title:Text('Ajouter une carte bancaire'),
-                leading:Icon(Icons.credit_card),
-              ),
-            ),
-            InkWell(
               onTap:(){
                 Navigator.push(context, MaterialPageRoute(builder: (context) => new HistoriquePage()));
               } ,
@@ -201,7 +186,7 @@ Widget _buildList(BuildContext context, DocumentSnapshot documentSnapshot, Panie
           Expanded(
             flex: 3,
             child: ListTile(
-              title: Text(documentSnapshot['nomTypeProduit'], style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold ),),
+              title: Text(documentSnapshot['nomTypeProduit'], style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold ),),
 
             ),
           ),

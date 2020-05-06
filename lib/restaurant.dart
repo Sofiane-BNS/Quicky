@@ -54,15 +54,7 @@ class _RestaurantState extends State<Restaurant>{
               Navigator.push(context, MaterialPageRoute(builder: (context) => GeneratorQR()));
             },
           )
-          ,new IconButton(
-            icon: Icon(
-              Icons.credit_card,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => new HistoriquePage()));
-            },
-          )
+
         ],
       ),
       drawer: new Drawer(
@@ -112,28 +104,7 @@ class _RestaurantState extends State<Restaurant>{
               title:Text('Home'),
               leading:Icon(Icons.home),
             ),
-            InkWell(
-              onTap:()async{
-                await StripePayment.paymentRequestWithCardForm(
-                  CardFormPaymentRequest(),
-                ).then(
-                        (PaymentMethod paymentMethod) async {
 
-                    }
-                );
-              } ,
-              child: ListTile(
-                title:Text('Ajouter une carte bancaire'),
-                leading:Icon(Icons.credit_card),
-              ),
-            ),
-            InkWell(
-              onTap:(){} ,
-              child: ListTile(
-                title:Text('Mon compte'),
-                leading:Icon(Icons.person),
-              ),
-            ),
             InkWell(
               onTap:(){
                 Navigator.push(context, MaterialPageRoute(builder: (context) => new HistoriquePage()));
