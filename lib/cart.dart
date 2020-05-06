@@ -91,8 +91,8 @@ class _CartState extends State<Cart> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.orangeAccent,
-        title: Text('Panier'),
+        backgroundColor: Colors.redAccent,
+        title: Text(' Votre panier'),
         actions: <Widget>[
 
         ],
@@ -125,7 +125,7 @@ class _CartState extends State<Cart> {
                     color: Colors.white,
                   ),
                 ),
-                color: Colors.orange,
+                color: Colors.redAccent,
               ),
             )
           ],

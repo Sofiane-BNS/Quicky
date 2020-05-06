@@ -30,8 +30,8 @@ class _HistoriquePageState extends State<HistoriquePage> {
   Widget build(BuildContext context) {
     return userId == "" ? Text("Loading") : Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.orangeAccent,
-        title: Text('Historique'),
+        backgroundColor: Colors.redAccent,
+        title: Text('Historique de vos commandes'),
         actions: <Widget>[
 
         ],

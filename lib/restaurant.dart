@@ -8,6 +8,7 @@ import 'package:quicky/welcome.dart';
 import 'package:stripe_payment/stripe_payment.dart';
 import 'commandes_historique.dart';
 import 'home.dart';
+import 'commandes_historique.dart';
 
 class Restaurant extends StatefulWidget{
   @override
@@ -51,6 +52,15 @@ class _RestaurantState extends State<Restaurant>{
             ),
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) => GeneratorQR()));
+            },
+          )
+          ,new IconButton(
+            icon: Icon(
+              Icons.credit_card,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => new HistoriquePage()));
             },
           )
         ],

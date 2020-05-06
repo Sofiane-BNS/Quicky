@@ -51,13 +51,13 @@ class _FormRestaurantState extends State<FormRestaurant> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               TextFormField(
-                decoration: InputDecoration(labelText: 'adresse'),
-                validator: (value) => value.isEmpty ? "Entrez une adresse" : null,
+                decoration: InputDecoration(labelText: 'Adresse'),
+                validator: (value) => value.isEmpty ? "Entrez votre adresse" : null,
                 onSaved: (value) => _adresse = value,
                 initialValue: documentSnapshot["adresse"],
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'latitude'),
+                decoration: InputDecoration(labelText: 'Latitude'),
                 validator: (value) {
                   if(value.isEmpty) return "Entrez une latitude";
                   if(double.tryParse(value)==null) return "Entrez une latitude valide";
@@ -67,7 +67,7 @@ class _FormRestaurantState extends State<FormRestaurant> {
                 initialValue: documentSnapshot["location"].latitude.toString(),
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'longitude'),
+                decoration: InputDecoration(labelText: 'Longitude'),
                 validator: (value) {
                   if(value.isEmpty) return "Entrez une longitude";
                   if(double.tryParse(value)==null) return "Entrez une longitude valide";
@@ -77,13 +77,13 @@ class _FormRestaurantState extends State<FormRestaurant> {
                 initialValue: documentSnapshot["location"].longitude.toString(),
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'nom du restaurant'),
-                validator: (value) => value.isEmpty ? "Entrez un nom de restaurant" : null,
+                decoration: InputDecoration(labelText: 'Nom de votre restaurant'),
+                validator: (value) => value.isEmpty ? "Entrez le nom de votre restaurant" : null,
                 onSaved: (value) => _nomRestaurant = value,
                 initialValue: documentSnapshot["nomRestaurant"],
               ),
               RaisedButton(
-                child: Text('soumettre', style: TextStyle(fontSize: 20),),
+                child: Text('Actualiser les données', style: TextStyle(fontSize: 20),),
                 onPressed: _updateData,
               ),
               FlatButton(
