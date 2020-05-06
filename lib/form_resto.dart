@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:quicky/commandes_historique_rest.dart';
 import 'package:quicky/liste_menu.dart';
 import 'package:quicky/welcome.dart';
 
@@ -88,6 +89,12 @@ class _FormRestaurantState extends State<FormRestaurant> {
               FlatButton(
                 child: Text('Modifier votre menu', style: TextStyle(fontSize: 16),),
                 onPressed: navigateToFormMenu,
+              ),
+              FlatButton(
+                child: Text('Historique des commandes', style: TextStyle(fontSize: 16),),
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => new HistoriquePageRest()));
+                },
               ),
               RaisedButton(
                 child: Text('Deconnexion', style: TextStyle(fontSize: 20),),

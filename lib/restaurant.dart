@@ -1,7 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quicky/generate_QRcode.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/services.dart';
+import 'package:quicky/welcome.dart';
+import 'package:stripe_payment/stripe_payment.dart';
+import 'commandes_historique.dart';
 import 'home.dart';
 
 class Restaurant extends StatefulWidget{
@@ -13,8 +18,17 @@ class Restaurant extends StatefulWidget{
 
 class _RestaurantState extends State<Restaurant>{
   String barcode;
+  Future<DocumentSnapshot> getProfile() async {
+    final FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    final uid = user.uid;
+    print(uid);
+    return Firestore.instance
+        .collection('Profile')
+        .document(uid)
+        .get();
+  }
 
-  @override
+    @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -40,6 +54,98 @@ class _RestaurantState extends State<Restaurant>{
             },
           )
         ],
+      ),
+      drawer: new Drawer(
+        child: ListView(
+          children: <Widget>[
+
+            FutureBuilder(
+                future: getProfile(),
+                builder: (context, snapshot) {
+                  if(snapshot.hasData){
+                    return new UserAccountsDrawerHeader(
+                      accountName: Text(snapshot.data.data == null ? "Mode invité" : snapshot.data.data['nom'] + " " +
+                          snapshot.data.data['prenom']),
+                      accountEmail: Text(snapshot.data.data == null ? "" : snapshot.data.data['email']),
+                      currentAccountPicture: GestureDetector(
+                        child: new CircleAvatar(
+                            backgroundColor: Colors.red,
+                            child: Image.asset("assets/images/jav.png")
+                          //Icon(Icons.person, color: Colors.white),
+                        ),
+                      ),
+                      decoration: new BoxDecoration(
+                          color: Colors.orange
+                      ),
+
+                    );
+                  } else {
+                    return new UserAccountsDrawerHeader(
+                      accountName: Text( 'Mode invité '),
+                      currentAccountPicture: GestureDetector(
+                        child: new CircleAvatar(
+                          backgroundColor: Colors.red,
+                          child: Icon(Icons.person, color: Colors.white),
+                        ),
+                      ),
+                      decoration: new BoxDecoration(
+                          color: Colors.grey
+                      ),
+
+                    );
+                  }
+
+
+                }
+            ),
+            ListTile(
+              title:Text('Home'),
+              leading:Icon(Icons.home),
+            ),
+            InkWell(
+              onTap:()async{
+                await StripePayment.paymentRequestWithCardForm(
+                  CardFormPaymentRequest(),
+                ).then(
+                        (PaymentMethod paymentMethod) async {
+
+                    }
+                );
+              } ,
+              child: ListTile(
+                title:Text('Ajouter une carte bancaire'),
+                leading:Icon(Icons.credit_card),
+              ),
+            ),
+            InkWell(
+              onTap:(){} ,
+              child: ListTile(
+                title:Text('Mon compte'),
+                leading:Icon(Icons.person),
+              ),
+            ),
+            InkWell(
+              onTap:(){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => new HistoriquePage()));
+              } ,
+              child: ListTile(
+                title:Text('Mes commandes'),
+                leading:Icon(Icons.credit_card),
+              ),
+            ),
+            InkWell(
+              onTap:(){
+                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                    Welcome()), (Route<dynamic> route) => false);} ,
+
+              child: ListTile(
+                title:Text('Deconnexion'),
+                leading:Icon(Icons.exit_to_app),
+
+              ),
+            )
+          ],
+        ),
       ),
       body: Container(
 

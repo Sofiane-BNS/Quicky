@@ -62,13 +62,6 @@ class _HistoriquePageState extends State<HistoriquePage> {
                         ),
                         Column(
                           children: <Widget>[
-                            Text("Etat"),
-                            Text(!snapshot.data.documents[index]["estTermine"] ? "En Cours.." : "Finis"),
-                          ],
-
-                        ),
-                        Column(
-                          children: <Widget>[
                             Text("Date"),
                             Text(getDateDisplay(snapshot.data.documents[index]["dateEnvoie"] as Timestamp) ),
                           ],
