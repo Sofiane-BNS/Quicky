@@ -133,22 +133,16 @@ class _HomeState extends State<Home>{
                 leading:Icon(Icons.credit_card),
               ),
             ),
-              InkWell(
-                onTap:(){} ,
-                child: ListTile(
-                  title:Text('Mon compte'),
-                  leading:Icon(Icons.person),
-                ),
+            InkWell(
+              onTap:(){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => new HistoriquePage()));
+              } ,
+              child: ListTile(
+                title:Text('Mes commandes'),
+                leading:Icon(Icons.credit_card),
               ),
-              InkWell(
-                onTap:(){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => new HistoriquePage()));
-                } ,
-                child: ListTile(
-                  title:Text('Mes commandes'),
-                  leading:Icon(Icons.credit_card),
-                ),
-              ),
+            ),
+
               InkWell(
                 onTap:(){
                   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>

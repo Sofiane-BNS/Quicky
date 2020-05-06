@@ -39,7 +39,7 @@ class _WelcomeState extends State<Welcome>{
     // TODO: implement build
     return Scaffold(
       backgroundColor: Colors.black,
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomPadding: false,
       body: Stack(
           fit: StackFit.expand,
           children: <Widget>[
@@ -73,11 +73,11 @@ class _WelcomeState extends State<Welcome>{
             ),
             SizedBox(height: 30,),
             Text(" Quicker than ever! ", style: TextStyle(color: Colors.red[400], fontSize: 18),),
-            SizedBox(height: 30,),
+            SizedBox(height: 28,),
             FlatButton(
               onPressed: TeamPage,
             child:Text("  by HexaQuick ", style: TextStyle(color: Colors.white, fontSize: 15),),)
-            ,SizedBox(height: 30,),
+
             ]
 
       )
