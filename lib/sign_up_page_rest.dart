@@ -24,6 +24,11 @@ class _SignUpPageRestState extends State<SignUpPageRest> {
         AuthResult authResult = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(
                 email: _email.trim(), password: _password);
+        await Firestore.instance.collection("Restaurants").document(authResult.user.uid).setData({
+          'adresse': '',
+          'location' : new GeoPoint(0.0, 0.0),
+          'nomRestaurant' : ''
+        });
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
                 builder: (context) =>
