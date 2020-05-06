@@ -24,7 +24,7 @@ dependencies:
   stripe_payment: 1.0.7
   progress_dialog: ^1.2.2
   http: ^0.11.3+17
-
+  intl: 0.16.1
   qr_flutter: ^3.0.1
   barcode_scan: ^1.0.0
 

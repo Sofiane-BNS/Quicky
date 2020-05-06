@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:quicky/model/panier.dart';
 import 'package:quicky/service/payment.dart';
 import 'cart.dart';
+import 'commandes_historique.dart';
 import 'details_menu.dart';
 import 'package:stripe_payment/stripe_payment.dart';
 import 'package:quicky/sign_up_page.dart';
@@ -46,6 +47,7 @@ class _HomeState extends State<Home>{
     StripeService.init();
     panier = PanierModel();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -139,7 +141,9 @@ class _HomeState extends State<Home>{
                 ),
               ),
               InkWell(
-                onTap:(){} ,
+                onTap:(){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => new HistoriquePage()));
+                } ,
                 child: ListTile(
                   title:Text('Mes commandes'),
                   leading:Icon(Icons.credit_card),

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:quicky/service/payment.dart';
@@ -18,7 +19,36 @@ class Cart extends StatefulWidget {
 
 class _CartState extends State<Cart> {
 
-  createCommande(){
+  Future<void> _neverSatisfied() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Votre commande à bien été pris en compte'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Nous allons vous servir au plus vite.'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  createCommande(String userId){
+
     try{
        Firestore.instance.collection("Commandes").add({
         'estTermine' : false,
@@ -26,6 +56,7 @@ class _CartState extends State<Cart> {
         'dateEnvoie' : DateTime.now(),
          'prix': widget.panier.getPrix(),
          'restaurantId': 'cJraGzuF74OHyrTfykeg',
+         'userId': userId,
          'menu': widget.panier.getMapMenu()
       });
     } catch(e){
@@ -43,14 +74,17 @@ class _CartState extends State<Cart> {
         amount: widget.panier.getPrix(),
         currency: 'USD'
     );
-    print(response);
     await dialog.hide();
 
+    final FirebaseUser user = await FirebaseAuth.instance.currentUser();
 
     //Register commande + reset panier
-    createCommande();
+    createCommande(user.uid);
     widget.resetPanier;
-    Navigator.of(context).pop();
+    _neverSatisfied();
+
+
+    //Navigator.of(context).pop();
   }
 
   @override
