@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quicky/login_page.dart';
+import 'package:quicky/welcome.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:quicky/model/panier.dart';
 import 'package:quicky/service/payment.dart';
@@ -76,19 +77,6 @@ class _HomeState extends State<Home>{
               builder: (context, snapshot) {
                 if(snapshot.hasData){
                   return new UserAccountsDrawerHeader(
-                    accountName: Text(snapshot.data['nom'] + " " +
-                        snapshot.data['nom']),
-                    accountEmail: Text('joel@gmail.com'),
-                    currentAccountPicture: GestureDetector(
-                      child: new CircleAvatar(
-                        backgroundColor: Colors.orange,
-                        child: Icon(Icons.person, color: Colors.white),
-                      ),
-                    ),
-                    decoration: new BoxDecoration(
-                        color: Colors.orange
-                    ),
-                return new UserAccountsDrawerHeader(
                   accountName: Text(snapshot.data.data['nom'] + " " +
                       snapshot.data.data['prenom']),
                   accountEmail: Text('joel@gmail.com'),
@@ -108,9 +96,6 @@ class _HomeState extends State<Home>{
                   return Text("Loading");
                 }
 
-              } else {
-                return Text("Loading");}
-                }
 
               }
               ),

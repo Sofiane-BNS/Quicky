@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'login_page.dart';
 import 'restaurant.dart';
 
@@ -19,7 +20,7 @@ class _SignUpPageState extends State<SignUpPage> {
       formKey.currentState.save();
       try{
         AuthResult authResult = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email.trim(), password: _password);
-        await await Firestore.instance.collection("Profile").document(authResult.user.uid).setData({
+        await Firestore.instance.collection("Profile").document(authResult.user.uid).setData({
           'nom' : "gadach",
           'prenom' : "amine"
         });
