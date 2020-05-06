@@ -17,7 +17,7 @@ class InitQR extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: QrImage(
-          data: "KuMahnjlovQHIjKSyoui", // message source du QRcode
+          data: "cJraGzuF74OHyrTfykeg", // message source du QRcode
           size: 200.0,
           errorStateBuilder: (cxt, err) {
             return Container(

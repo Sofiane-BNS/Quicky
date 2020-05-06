@@ -17,17 +17,19 @@ class _SignUpPageState extends State<SignUpPage> {
   void signUp() async {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
-      try {
-        AuthResult authResult = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(
-            email: _email.trim(), password: _password);
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) =>
+      try{
+        AuthResult authResult = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email.trim(), password: _password);
+        await await Firestore.instance.collection("Profile").document(authResult.user.uid).setData({
+          'nom' : "gadach",
+          'prenom' : "amine"
+        });
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
             //Home()), (Route<dynamic> route) => false);
             Restaurant()), (Route<dynamic> route) => false);
       } catch (e) {
         print(e);
       }
+
     }
   }
 
@@ -125,7 +127,6 @@ class _SignUpPageState extends State<SignUpPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Email'),
                   validator: (value) => value.isEmpty ? "Entrez un email" : null,

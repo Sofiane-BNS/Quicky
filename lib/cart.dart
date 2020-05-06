@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:progress_dialog/progress_dialog.dart';
+import 'package:quicky/service/payment.dart';
 
 import 'model/item_menu.dart';
 import 'model/panier.dart';
@@ -10,13 +12,47 @@ class Cart extends StatefulWidget {
 
   Cart({this.panier, this.resetPanier});
 
-
-
   @override
   _CartState createState() => _CartState();
 }
 
 class _CartState extends State<Cart> {
+
+  createCommande(){
+    try{
+       Firestore.instance.collection("Commandes").add({
+        'estTermine' : false,
+         'numeroTable': 5,
+        'dateEnvoie' : DateTime.now(),
+         'prix': widget.panier.getPrix(),
+         'restaurantId': 'cJraGzuF74OHyrTfykeg',
+         'menu': widget.panier.getMapMenu()
+      });
+    } catch(e){
+    }
+  }
+
+  payViaNewCard(BuildContext context) async {
+    ProgressDialog dialog = new ProgressDialog(context);
+    dialog.style(
+        message: 'Please wait...'
+    );
+    await dialog.show();
+    var response = await StripeService.payWithNewCard(
+        //amount: widget.panier.getPrix(),
+        amount: widget.panier.getPrix(),
+        currency: 'USD'
+    );
+    print(response);
+    await dialog.hide();
+
+
+    //Register commande + reset panier
+    createCommande();
+    widget.resetPanier;
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,13 +60,7 @@ class _CartState extends State<Cart> {
         backgroundColor: Colors.orangeAccent,
         title: Text('Panier'),
         actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.refresh),
-            onPressed: (){
-              widget.resetPanier;
-              Navigator.pop(context);
-            },
-          )
+
         ],
       ),
       body: Container(
@@ -52,7 +82,9 @@ class _CartState extends State<Cart> {
             )),
             Expanded(
               child: MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  payViaNewCard(context);
+                },
                 child: Text(
                   "Terminé",
                   style: TextStyle(
@@ -68,6 +100,7 @@ class _CartState extends State<Cart> {
     );
   }
 }
+
 
 
 class ItemMenuListItem extends StatelessWidget {
