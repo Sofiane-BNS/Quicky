@@ -79,7 +79,7 @@ class _HomeState extends State<Home>{
                   return new UserAccountsDrawerHeader(
                   accountName: Text(snapshot.data.data['nom'] + " " +
                       snapshot.data.data['prenom']),
-                  accountEmail: Text('joel@gmail.com'),
+                  accountEmail: Text(snapshot.data.data['email']),
                   currentAccountPicture: GestureDetector(
                     child: new CircleAvatar(
                       backgroundColor: Colors.red,
