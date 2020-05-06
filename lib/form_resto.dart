@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:quicky/liste_menu.dart';
+import 'package:quicky/welcome.dart';
 
 
 class FormRestaurant extends StatefulWidget {
@@ -87,6 +88,11 @@ class _FormRestaurantState extends State<FormRestaurant> {
               FlatButton(
                 child: Text('Modifier votre menu', style: TextStyle(fontSize: 16),),
                 onPressed: navigateToFormMenu,
+              ),
+              RaisedButton(
+                child: Text('Deconnexion', style: TextStyle(fontSize: 20),),
+                onPressed: (){ Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                    Welcome()), (Route<dynamic> route) => false);},
               ),
             ],
           )
