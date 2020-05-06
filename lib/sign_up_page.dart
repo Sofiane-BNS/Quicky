@@ -85,7 +85,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       TextFormField(
-                        style: TextStyle(color: Colors.black,
+                        style: TextStyle(color: Colors.white,
                       ),
                         decoration: InputDecoration(labelText: 'Email'),
                         validator: (value) =>
@@ -95,6 +95,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         onSaved: (value) => _email = value,
                       ),
                       TextFormField(
+                        style: TextStyle(color: Colors.white,),
                         decoration: InputDecoration(labelText: 'Mot de passe'),
                         obscureText: true,
                         validator: (value) =>

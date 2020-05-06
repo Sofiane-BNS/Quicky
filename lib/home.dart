@@ -78,9 +78,9 @@ class _HomeState extends State<Home>{
               builder: (context, snapshot) {
                 if(snapshot.hasData){
                   return new UserAccountsDrawerHeader(
-                  accountName: Text(snapshot.data.data['nom'] + " " +
+                  accountName: Text(snapshot.data.data == null ? "Mode invité" : snapshot.data.data['nom'] + " " +
                       snapshot.data.data['prenom']),
-                  accountEmail: Text(snapshot.data.data['email']),
+                  accountEmail: Text(snapshot.data.data == null ? "" : snapshot.data.data['email']),
                   currentAccountPicture: GestureDetector(
                     child: new CircleAvatar(
                       backgroundColor: Colors.red,
@@ -94,7 +94,19 @@ class _HomeState extends State<Home>{
 
                   );
                 } else {
-                  return Text("Loading");
+                  return new UserAccountsDrawerHeader(
+                    accountName: Text( 'Mode invité '),
+                    currentAccountPicture: GestureDetector(
+                      child: new CircleAvatar(
+                          backgroundColor: Colors.red,
+                          child: Icon(Icons.person, color: Colors.white),
+                      ),
+                    ),
+                    decoration: new BoxDecoration(
+                        color: Colors.grey
+                    ),
+
+                  );
                 }
 
 

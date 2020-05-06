@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quicky/sign_up_page.dart';
 import 'package:quicky/team.dart';
-
+import 'restaurant.dart';
 import 'login_page.dart';
 
 class Welcome extends StatefulWidget {
@@ -18,6 +18,12 @@ class _WelcomeState extends State<Welcome>{
   void navigateToLogIn(){
     Navigator.push(context, new MaterialPageRoute(builder: (context) => LoginPage(), fullscreenDialog: true));
   }
+  Future signInAnon() async{
+     await FirebaseAuth.instance.signInAnonymously();
+     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+     //Home()), (Route<dynamic> route) => false);
+     Restaurant()), (Route<dynamic> route) => false);
+  }
   void TeamPage(){
     Navigator.push(context, MaterialPageRoute(builder: (context) => Team(), fullscreenDialog: true ));
   }
@@ -30,10 +36,6 @@ class _WelcomeState extends State<Welcome>{
     return Scaffold(
       backgroundColor: Colors.black,
       resizeToAvoidBottomPadding: true,
-      appBar: AppBar(
-        title: Text('Bienvenue sur Quicky'),
-
-      ),
       body: Stack(
           fit: StackFit.expand,
           children: <Widget>[
@@ -41,7 +43,7 @@ class _WelcomeState extends State<Welcome>{
       crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
       Padding(
-      padding: EdgeInsets.only(top: 20.0),
+      padding: EdgeInsets.only(top: 50.0),
       child: Image.asset("assets/images/logo.jpg"),
 
 
@@ -55,12 +57,19 @@ class _WelcomeState extends State<Welcome>{
                 onPressed: navigateToSignUp,
                 child: Text('Pas encore inscrit? Cliquez ici !'),
             ),
+            SizedBox(height: 10,),
+            RaisedButton(
+              onPressed: signInAnon,
+              child:Text(" Continuer en tant qu'invité "),
+            ),
             SizedBox(height: 30,),
             Text(" Quicker than ever! ", style: TextStyle(color: Colors.red[400], fontSize: 18),),
             SizedBox(height: 30,),
             FlatButton(
               onPressed: TeamPage,
-            child:Text("  by HexaQuick ", style: TextStyle(color: Colors.white, fontSize: 15),),)]
+            child:Text("  by HexaQuick ", style: TextStyle(color: Colors.white, fontSize: 15),),)
+            ,SizedBox(height: 30,),
+            ]
 
       )
     ]
