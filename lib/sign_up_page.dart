@@ -14,6 +14,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
   String _email;
   String _password;
+  String _nom;
+  String _prenom;
 
   void signUp() async {
     if (formKey.currentState.validate()) {
@@ -22,8 +24,8 @@ class _SignUpPageState extends State<SignUpPage> {
         AuthResult authResult = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email.trim(), password: _password);
         await Firestore.instance.collection("Profile").document(authResult.user.uid).setData({
           'email': _email,
-          'nom' : "gadach",
-          'prenom' : "amine"
+          'nom' : _nom,
+          'prenom' : _prenom
         });
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) =>
@@ -84,6 +86,26 @@ class _SignUpPageState extends State<SignUpPage> {
                       , child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
+                      TextFormField(
+                        style: TextStyle(color: Colors.white,
+                        ),
+                        decoration: InputDecoration(labelText: 'Prenom'),
+                        validator: (value) =>
+                        value.isEmpty
+                            ? "Entrez votre prenom"
+                            : null,
+                        onSaved: (value) => _prenom = value,
+                      ),
+                      TextFormField(
+                        style: TextStyle(color: Colors.white,
+                        ),
+                        decoration: InputDecoration(labelText: 'Nom'),
+                        validator: (value) =>
+                        value.isEmpty
+                            ? "Entrez votre nom"
+                            : null,
+                        onSaved: (value) => _nom = value,
+                      ),
                       TextFormField(
                         style: TextStyle(color: Colors.white,
                       ),
