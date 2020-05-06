@@ -21,6 +21,9 @@ dependencies:
     sdk: flutter
   firebase_auth: 0.16.0
   cloud_firestore: 0.13.5
+  stripe_payment: 1.0.7
+  progress_dialog: ^1.2.2
+  http: ^0.11.3+17
 
   qr_flutter: ^3.0.1
   barcode_scan: ^1.0.0
@@ -46,8 +49,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #  - images/a_dot_burr.jpeg
+  assets:
+   - assets/images/
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'login_page.dart';
 import 'restaurant.dart';
 
@@ -14,38 +15,132 @@ class _SignUpPageState extends State<SignUpPage> {
   String _email;
   String _password;
 
-  void signUp() async{
-
-    if(formKey.currentState.validate()){
+  void signUp() async {
+    if (formKey.currentState.validate()) {
       formKey.currentState.save();
       try{
         AuthResult authResult = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email.trim(), password: _password);
-        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+        await Firestore.instance.collection("Profile").document(authResult.user.uid).setData({
+          'email': _email,
+          'nom' : "gadach",
+          'prenom' : "amine"
+        });
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) =>
             //Home()), (Route<dynamic> route) => false);
             Restaurant()), (Route<dynamic> route) => false);
-      } catch (e){
+      } catch (e) {
         print(e);
       }
 
     }
   }
 
-  void moveToLogIn(){
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage(), fullscreenDialog: true ));
+  void moveToLogIn() {
+    Navigator.pushReplacement(context, MaterialPageRoute(
+        builder: (context) => LoginPage(), fullscreenDialog: true));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text('Inscription'),
-      ),
-      body: Container(
+      )
+      ,
+      body: Stack(
+          fit: StackFit.expand
+          , children: <Widget>[
+        new Image(
+          image: new AssetImage("assets/images/ff.jpg"),
+          fit: BoxFit.fill,
+          color: Colors.black87,
+          colorBlendMode: BlendMode.darken,
+        ),
+        new Column(
+            children: <Widget>[
+              SizedBox(height: 20,),
+              Text('Rejoins la QuickTeam!',
+                style: TextStyle(color: Colors.redAccent, fontSize: 22),)
+              , SizedBox(height: 20,),
+              Text('Complète les informations suivantes',
+                style: TextStyle(color: Colors.white, fontSize: 17),),
+              SizedBox(height: 40,),
+                Theme(
+                  data: new ThemeData(
+                    brightness: Brightness.dark,
+                    inputDecorationTheme: new InputDecorationTheme(
+                    hintStyle: new TextStyle(color: Colors.redAccent, fontSize: 20.0),
+                    labelStyle:
+                    new TextStyle(color: Colors.redAccent, fontSize: 20.0),
+                    ))
+                    ,isMaterialAppTheme: true,
+
+
+                  child: Form(
+                      key: formKey
+
+                      , child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      TextFormField(
+                        style: TextStyle(color: Colors.black,
+                      ),
+                        decoration: InputDecoration(labelText: 'Email'),
+                        validator: (value) =>
+                        value.isEmpty
+                            ? "Entrez votre adresse email"
+                            : null,
+                        onSaved: (value) => _email = value,
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(labelText: 'Mot de passe'),
+                        obscureText: true,
+                        validator: (value) =>
+                        value.isEmpty
+                            ? "Entrez votre mot de passe"
+                            : null,
+                        onSaved: (value) => _password = value,
+                      ),
+                      SizedBox(height: 10,),
+                      FlatButton(
+                        child: Text(
+                          'Inscription', style: TextStyle(fontSize: 20),),
+                        onPressed: signUp,
+                      ),
+                      SizedBox(height: 10,),
+                      FlatButton(onPressed: moveToLogIn,
+                        child: Text(
+                            'Connexion', style: TextStyle(fontSize: 20.0)),
+
+                      )
+                      ],
+                  )
+
+    )
+    )]
+              )
+      ]
+      )
+      );
+
+
+  }
+}
+
+/*} Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image:AssetImage("assets/images/rb.jpg",),
+          )
+        ),
         padding: EdgeInsets.all(16),
-        child: Form(
+        child: Stack(),
+        :Form(
             key: formKey,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Email'),
@@ -63,12 +158,11 @@ class _SignUpPageState extends State<SignUpPage> {
                   onPressed: signUp,
                 ),
                 FlatButton(onPressed: moveToLogIn,
-                  child: Text('Connexion', style: TextStyle(fontSize: 20.0)),
-                )
+                  child: Text('Connexion', style: TextStyle(fontSize: 20.0)),                )
               ],
             )
         ),
       ),
     );
-  }
-}
+  }*/
+

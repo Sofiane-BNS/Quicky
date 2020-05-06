@@ -48,4 +48,14 @@ class PanierModel {
     }
     return prix.toString();
   }
+
+  Map getMapMenu(){
+    Map foodMap = {
+    };
+    for(int i =0; i<listItemMenu.length;i++){
+      foodMap[listItemMenu[i].id] = listItemMenu[i].number;
+    }
+    return foodMap;
+  }
+
 }
