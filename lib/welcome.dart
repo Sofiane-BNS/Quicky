@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quicky/sign_up_page.dart';
+import 'package:quicky/sign_up_page_rest.dart';
 import 'package:quicky/team.dart';
 import 'restaurant.dart';
 import 'login_page.dart';
@@ -30,6 +31,9 @@ class _WelcomeState extends State<Welcome>{
   void navigateToSignUp(){
     Navigator.push(context, new MaterialPageRoute(builder: (context) => SignUpPage()));
   }
+  void navigateToSignUpRest(){
+    Navigator.push(context, new MaterialPageRoute(builder: (context) => SignUpPageRest()));
+  }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -43,7 +47,7 @@ class _WelcomeState extends State<Welcome>{
       crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
       Padding(
-      padding: EdgeInsets.only(top: 50.0),
+      padding: EdgeInsets.only(top: 20.0),
       child: Image.asset("assets/images/logo.jpg"),
 
 
@@ -56,6 +60,11 @@ class _WelcomeState extends State<Welcome>{
             RaisedButton(
                 onPressed: navigateToSignUp,
                 child: Text('Pas encore inscrit? Cliquez ici !'),
+            ),
+            SizedBox(height: 30,),
+            RaisedButton(
+              onPressed: navigateToSignUpRest,
+              child: Text('Vous êtes un restaurant? Cliquez ici !'),
             ),
             SizedBox(height: 10,),
             RaisedButton(
