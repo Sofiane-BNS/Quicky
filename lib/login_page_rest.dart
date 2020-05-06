@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:quicky/restaurant.dart';
+import 'package:quicky/form_resto.dart';
 import 'package:quicky/sign_up_page_rest.dart';
 
 class LoginPageRest extends StatefulWidget {
@@ -25,7 +25,7 @@ class _LoginPageRestState extends State<LoginPageRest> {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) =>
             //Home()), (Route<dynamic> route) => false);
-            Restaurant()), (Route<dynamic> route) => false);
+            FormRestaurant(authResult.user.uid)), (Route<dynamic> route) => false);
       } catch (e) {
         print(e);
       }

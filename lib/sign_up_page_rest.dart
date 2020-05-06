@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quicky/login_page_rest.dart';
-import 'package:quicky/restaurant.dart';
+import 'package:quicky/form_resto.dart';
 
 class SignUpPageRest extends StatefulWidget {
   @override
@@ -15,10 +15,6 @@ class _SignUpPageRestState extends State<SignUpPageRest> {
 
   String _email;
   String _password;
-  String _nom;
-  String _lat;
-  String _long;
-  String _adresse;
 
 
   void signUp() async {
@@ -28,22 +24,11 @@ class _SignUpPageRestState extends State<SignUpPageRest> {
         AuthResult authResult = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(
                 email: _email.trim(), password: _password);
-//        await await Firestore.instance
-//            .collection("Restaurants")
-//            .document(authResult.user.uid)
-//            .setData(
-//            {"adresse": _adresse,
-//              "location": {
-//              "type":"geopoint",
-//              "coordinates":[_lat,_long]
-//            },
-//              'nomRestaurant': _nom
-//            });
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
                 builder: (context) =>
                     //Home()), (Route<dynamic> route) => false);
-                    Restaurant()),
+                    FormRestaurant(authResult.user.uid)),
             (Route<dynamic> route) => false);
       } catch (e) {
         print(e);
