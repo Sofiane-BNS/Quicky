@@ -14,6 +14,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
   String _email;
   String _password;
+  String _nom;
+  String _prenom;
 
   void signUp() async {
     if (formKey.currentState.validate()) {
@@ -21,6 +23,7 @@ class _SignUpPageState extends State<SignUpPage> {
       try{
         AuthResult authResult = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email.trim(), password: _password);
         await Firestore.instance.collection("Profile").document(authResult.user.uid).setData({
+          'email': _email,
           'nom' : "gadach",
           'prenom' : "amine"
         });
@@ -64,6 +67,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+
                       TextFormField(
                         style: TextStyle(color: Colors.black,
                       ),
