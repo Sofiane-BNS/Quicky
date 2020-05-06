@@ -14,8 +14,6 @@ class _SignUpPageState extends State<SignUpPage> {
 
   String _email;
   String _password;
-  String _nom;
-  String _prenom;
 
   void signUp() async {
     if (formKey.currentState.validate()) {
@@ -27,7 +25,8 @@ class _SignUpPageState extends State<SignUpPage> {
           'nom' : "gadach",
           'prenom' : "amine"
         });
-        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) =>
             //Home()), (Route<dynamic> route) => false);
             Restaurant()), (Route<dynamic> route) => false);
       } catch (e) {
@@ -45,77 +44,88 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomPadding: false,
-        appBar: AppBar(
-          title: Text('Inscription'),
-        )
-        ,
-        body: Column(
+      resizeToAvoidBottomPadding: false,
+      appBar: AppBar(
+        title: Text('Inscription'),
+      )
+      ,
+      body: Stack(
+          fit: StackFit.expand
+          , children: <Widget>[
+        new Image(
+          image: new AssetImage("assets/images/ff.jpg"),
+          fit: BoxFit.fill,
+          color: Colors.black87,
+          colorBlendMode: BlendMode.darken,
+        ),
+        new Column(
             children: <Widget>[
-              SizedBox(height: 5,),
-              Text('Rejoins la QuickTeam!', style: TextStyle(color: Colors.black, fontSize: 22),)
-              ,SizedBox(height: 10,),
-              Padding(
-                padding: EdgeInsets.only(top: 0.0),
-                child: Image.asset("assets/images/ff.jpg"),
-              ),
-              SizedBox(height: 10,),
-              Text('Veuillez remplir les informations suivantes',
-                style: TextStyle(color: Colors.black, fontSize: 17),),
+              SizedBox(height: 20,),
+              Text('Rejoins la QuickTeam!',
+                style: TextStyle(color: Colors.redAccent, fontSize: 22),)
+              , SizedBox(height: 20,),
+              Text('Complète les informations suivantes',
+                style: TextStyle(color: Colors.white, fontSize: 17),),
+              SizedBox(height: 40,),
+                Theme(
+                  data: new ThemeData(
+                    brightness: Brightness.dark,
+                    inputDecorationTheme: new InputDecorationTheme(
+                    hintStyle: new TextStyle(color: Colors.redAccent, fontSize: 20.0),
+                    labelStyle:
+                    new TextStyle(color: Colors.redAccent, fontSize: 20.0),
+                    ))
+                    ,isMaterialAppTheme: true,
 
-              Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+
+                  child: Form(
+                      key: formKey
+
+                      , child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
-
                       TextFormField(
                         style: TextStyle(color: Colors.black,
                       ),
                         decoration: InputDecoration(labelText: 'Email'),
                         validator: (value) =>
                         value.isEmpty
-                            ? "Entrez un email"
+                            ? "Entrez votre adresse email"
                             : null,
                         onSaved: (value) => _email = value,
                       ),
-                      Expanded(
-                          child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            TextFormField(
-                            style: TextStyle(color: Colors.black,),
-                            decoration: InputDecoration(labelText: 'Mot de passe'),
-                            obscureText: true,
-                            validator: (value) =>
-                            value.isEmpty
-                                ? "Entrez un mot de passe"
-                                : null,
-                            onSaved: (value) => _password = value,
-                          ),
-                            Expanded(
-                            child: Column(
-                              children: <Widget>[
-                             RaisedButton(
-                             child: Text(
-                              'Inscription', style: TextStyle(fontSize: 15.0),),
-                              onPressed: signUp,
-                            ),
-                             RaisedButton(onPressed: moveToLogIn,
-                             child: Text(
-                            'Connexion', style: TextStyle(fontSize: 15.0)),
+                      TextFormField(
+                        decoration: InputDecoration(labelText: 'Mot de passe'),
+                        obscureText: true,
+                        validator: (value) =>
+                        value.isEmpty
+                            ? "Entrez votre mot de passe"
+                            : null,
+                        onSaved: (value) => _password = value,
+                      ),
+                      SizedBox(height: 10,),
+                      FlatButton(
+                        child: Text(
+                          'Inscription', style: TextStyle(fontSize: 20),),
+                        onPressed: signUp,
+                      ),
+                      SizedBox(height: 10,),
+                      FlatButton(onPressed: moveToLogIn,
+                        child: Text(
+                            'Connexion', style: TextStyle(fontSize: 20.0)),
+
                       )
-                      ]
-                            )
-                            )
-                    ],
+                      ],
                   )
+
+    )
+    )]
               )
-         ]
+      ]
       )
-    )
-    ]
-    )
-    );
+      ));
+
+
   }
 }
 
@@ -148,8 +158,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   onPressed: signUp,
                 ),
                 FlatButton(onPressed: moveToLogIn,
-                  child: Text('Connexion', style: TextStyle(fontSize: 20.0)),
-                )
+                  child: Text('Connexion', style: TextStyle(fontSize: 20.0)),                )
               ],
             )
         ),

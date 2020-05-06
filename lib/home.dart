@@ -8,6 +8,7 @@ import 'package:quicky/service/payment.dart';
 import 'cart.dart';
 import 'details_menu.dart';
 import 'package:stripe_payment/stripe_payment.dart';
+import 'package:quicky/sign_up_page.dart';
 
 class Home extends StatefulWidget{
 
