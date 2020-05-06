@@ -54,6 +54,7 @@ class _HistoriquePageState extends State<HistoriquePage> {
                       children: <Widget>[
                         Column(
                           children: <Widget>[
+                            
                             Text("Prix"),
                             Text(snapshot.data.documents[index]["prix"].toString()),
                           ],
