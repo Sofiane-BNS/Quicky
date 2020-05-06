@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Quicky',
       theme: ThemeData(
-        primarySwatch: Colors.orange,
+        primarySwatch: Colors.red,
       ),
       home: Welcome(),
     );

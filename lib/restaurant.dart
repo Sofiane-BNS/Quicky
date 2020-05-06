@@ -29,14 +29,7 @@ class _RestaurantState extends State<Restaurant>{
               scanQr(context);
             },
           ),
-          new IconButton(
-            icon: Icon(
-              Icons.nfc,
-              color: Colors.white,
-            ),
-            onPressed: () {
-            },
-          ),
+
           new IconButton(
             icon: Icon(
               Icons.add,

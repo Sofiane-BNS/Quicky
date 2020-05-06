@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:quicky/login_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:quicky/model/panier.dart';
+import 'package:quicky/welcome.dart';
 import 'cart.dart';
 import 'details_menu.dart';
 
@@ -37,7 +38,7 @@ class _HomeState extends State<Home>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Faîtes votre commande'),
+        title: Text('Composez votre commande'),
         actions: <Widget>[
           new IconButton(
             icon: Icon(
@@ -63,8 +64,9 @@ class _HomeState extends State<Home>{
                   accountEmail: Text('joel@gmail.com'),
                   currentAccountPicture: GestureDetector(
                     child: new CircleAvatar(
-                      backgroundColor: Colors.orange,
-                      child: Icon(Icons.person, color: Colors.white),
+                      backgroundColor: Colors.red,
+                      child: Image.asset("assets/images/jav.png")
+                      //Icon(Icons.person, color: Colors.white),
                     ),
                   ),
                   decoration: new BoxDecoration(
@@ -88,14 +90,14 @@ class _HomeState extends State<Home>{
               InkWell(
                 onTap:(){} ,
                 child: ListTile(
-                  title:Text('Parametres'),
-                  leading:Icon(Icons.settings),
+                  title:Text('Mes commandes'),
+                  leading:Icon(Icons.credit_card),
                 ),
               ),
               InkWell(
                 onTap:(){
                   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-                    LoginPage()), (Route<dynamic> route) => false);} ,
+                    Welcome()), (Route<dynamic> route) => false);} ,
 
                 child: ListTile(
                   title:Text('Deconnexion'),
@@ -157,7 +159,7 @@ Widget _buildList(BuildContext context, DocumentSnapshot documentSnapshot, Panie
           Spacer(),
           Icon(
             Icons.arrow_forward_ios,
-            color: Colors.orange,
+            color: Colors.red,
             size: 24.0,
           ),
 
