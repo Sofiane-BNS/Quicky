@@ -48,7 +48,13 @@ class _WelcomeState extends State<Welcome>{
           children: <Widget>[
       Padding(
       padding: EdgeInsets.only(top: 20.0),
-      child: Image.asset("assets/images/logo.jpg"),
+      child:
+      Container(
+        child:
+          Image.asset("assets/images/logo.jpg"),
+            width: 150,
+        height: 150,
+      )
 
 
     ), SizedBox(height: 30,),

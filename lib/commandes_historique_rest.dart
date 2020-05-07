@@ -40,7 +40,7 @@ class _HistoriquePageRestState extends State<HistoriquePageRest> {
       ),
       body: Container(
         child: StreamBuilder(
-          stream: Firestore.instance.collection("Commandes").where("restaurantId",isEqualTo: userId).orderBy("dateEnvoie").snapshots(),
+          stream: Firestore.instance.collection("Commandes").where("restaurantId",isEqualTo: userId).snapshots(),
           builder: (context,snapshot){
             if (!snapshot.hasData){
               return Text('Loading..');

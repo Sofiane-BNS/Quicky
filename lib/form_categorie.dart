@@ -21,6 +21,7 @@ class _FormCategorieState extends State<FormCategorie> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text('Ajouter une nouvelle catégorie'),
       ),

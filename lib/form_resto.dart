@@ -22,6 +22,7 @@ class _FormRestaurantState extends State<FormRestaurant> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text('Informations du restaurant'),
       ),

@@ -23,6 +23,7 @@ class _FormProduitState extends State<FormProduit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text('Ajouter un nouveau produit'),
       ),
