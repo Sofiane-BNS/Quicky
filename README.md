@@ -1,24 +1,28 @@
 # Quicky
 
-Vidéo de présentation :
+## Vidéo
 https://drive.google.com/file/d/1tWuPlhBq9ZzY7ZpS8OupBiYlKIQEBd04/view?usp=sharing
 
+## Présentation (slides)
+https://docs.google.com/presentation/d/1iqCZIySQ_h2DhUV9wEYRTRCN7er7lowId7d9-ULTumI/edit?usp=sharing
+
+## Documentations complémentaires
 Documentations Flutter :
 https://flutter.dev/docs/get-started/install
 
 Documentation Firebase : 
 https://firebase.google.com/?hl=fr
 
+## Installation
 
-## Getting Started
+1. Installer Android Studio.
+https://developer.android.com/studio
 
-This project is a starting point for a Flutter application.
+2. Ajouter le framework Flutter.
+https://flutter.dev/docs/get-started/install
 
-A few resources to get you started if this is your first Flutter project:
+3. Cloner de dépôt GitHub dans un nouveau projet.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+4. Lancer l'application.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
