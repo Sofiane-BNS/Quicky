@@ -1,6 +1,12 @@
-# quicky
+# Quicky
 
-A new Flutter application.
+Vidéo de présentation :
+https://drive.google.com/file/d/1tWuPlhBq9ZzY7ZpS8OupBiYlKIQEBd04/view?usp=sharing
+
+Documentations Flutter et Firbase :
+https://flutter.dev/docs/get-started/install
+https://firebase.google.com/?hl=fr
+
 
 ## Getting Started
 
